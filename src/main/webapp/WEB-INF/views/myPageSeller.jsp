@@ -72,7 +72,7 @@
         <div class="max-container">
         	<div>
         		<h2 class="myPageLike__title">판매 중인 게시물을 확인해보세요!</h2> 
-            	<div id="sellList" class="myPageLike">
+            	<div id="sellList" class="myPageLike"> <!-- BeansDAO의 List<likeBeans> 클래스 -->
             		
             		<c:forEach items="${sellList}" var="beans" >
             		<c:choose>
@@ -91,7 +91,8 @@
 			                            </tr>
 			                            <tr>
 			                                <th class="productList__productDelivery">배송비</th>
-			                                <td class="productList__productDelivery">Free </td>
+			                                <td class="productList__productDelivery">
+			                                <fmt:formatNumber pattern="#,###" value="${beans.beansDO.deliveryCharge}"/>원</td>
 			                            </tr>
 			                            <tr>
 			                                <th class="productList__productCategory">원두 종류</th>
@@ -122,7 +123,7 @@
 				                            </tr>
 				                            <tr>
 				                                <th class="productList__productDelivery">배송비</th>
-				                                <td class="productList__productDelivery">Free </td>
+				                                <td class="productList__productDelivery">Closed</td>
 				                            </tr>
 				                            <tr>
 				                                <th class="productList__productCategory">원두 종류</th>
@@ -136,6 +137,11 @@
 	                		</div>
             			</c:when>
             		</c:choose>
+            		
+            		<form method="get" action="modifyInfo" class="myPageInfo__button">
+		             	<button name="beansNum" value="${beans.beansDO.beansNum}" 
+		             	class="myPageLike__hate"><i class="fa-solid fa-gear"></i></button>
+		            </form>
                 	</c:forEach>
             	</div>
         	</div>

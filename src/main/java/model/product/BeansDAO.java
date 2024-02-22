@@ -617,7 +617,7 @@ public class BeansDAO {
 	public int modifyBeans(BeansDO beansDO) {
 		int rowCount = 0;
 		this.sql = "update beans set bean_name = ?, bean_price = ?, "
-				+ "delivery_charge =?, bean_img = ?, descript = ? where beans_num = ?";
+				+ "delivery_charge =?, bean_img = ?, descript = ?, category_num = ? where beans_num = ?";
 		try {
 
 			pstmt = conn.prepareStatement(sql);
@@ -626,7 +626,9 @@ public class BeansDAO {
 			pstmt.setLong(3, beansDO.getDeliveryCharge());
 			pstmt.setString(4, beansDO.getBeanImg());
 			pstmt.setString(5, beansDO.getDescript());
-			pstmt.setInt(6, beansDO.getBeansNum());
+			pstmt.setInt(6, beansDO.getCategoryNum());
+			pstmt.setInt(7, beansDO.getBeansNum());
+			
 			rowCount = pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -863,7 +865,7 @@ public class BeansDAO {
 		ArrayList<LikeBeans> sellList = new ArrayList<>();
 
 
-		this.sql = "select beans_num, bean_name, bean_price, bean_img, bean_total_selcount, status, category_num " +
+		this.sql = "select beans_num, bean_name, bean_price, bean_img, bean_total_selcount, status, category_num, delivery_charge " +
 						"from beans where seller_email = ? " +
 						"order by beans_num desc";
 			try {
@@ -884,7 +886,7 @@ public class BeansDAO {
 					beans.setBeanTotalSellCount(rs.getInt("bean_total_selcount"));
 					beans.setStatusNumber(rs.getInt("status"));
 					beans.setCategoryNum(rs.getInt("category_num"));
-
+					beans.setDeliveryCharge(rs.getLong("delivery_charge"));
 					likeBeans.setBeansDO(beans);
 
 					sellList.add(likeBeans);

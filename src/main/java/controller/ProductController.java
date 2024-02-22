@@ -381,14 +381,12 @@ public class ProductController {
 	@PostMapping("/registerProd")
 	public String resisterProduct(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
 
-		String directory = "C:\\Users\\H40\\finalCoffee/coffee-please/src/main/webapp/registerData/sellerData/beans";
+		//String directory = "C:\\Users\\H40\\finalCoffee/coffee-please/src/main/webapp/registerData/sellerData/beans";
+		String directory = "C:/Users/jsseo/git/coffee/src/main/webapp/registerData/sellerData/beans" ;
 		int sizeLimit = 1024 * 1024 * 5;
 
 		MultipartRequest multi = new MultipartRequest(request, directory, sizeLimit,
 				"UTF-8", new DefaultFileRenamePolicy());
-
-		int categoryNum = Integer.parseInt(multi.getParameter("categoryNum"));
-		//System.out.println(categoryNum);
 
 		String action = multi.getParameter("action");
 		if (action != null && action.equals("register")) {
@@ -401,11 +399,11 @@ public class ProductController {
 
 			String beanName = multi.getParameter("beanName");
 			int beanPrice = Integer.parseInt(multi.getParameter("beanPrice"));
+			int categoryNum = Integer.parseInt(multi.getParameter("categoryNum"));
 			int deliveryCharge = Integer.parseInt(multi.getParameter("deliveryCharge"));
 
-//			"\\finalProject\\uploadTest" + savedName; //
-			String beanImg = "/coffee/registerData/sellerData/beans/" + img[0]; // 웹 경로로 수정
-			String descript = "/coffee/registerData/sellerData/beans/" + img[1]; // 웹 경로로 수정
+			String beanImg = "/coffee/registerData/sellerData/beans/" + img[1]; // 웹 경로로 수정
+			String descript = "/coffee/registerData/sellerData/beans/" + img[0]; // 웹 경로로 수정
 			// 게시물 생성
 			BeansDO newBeans = new BeansDO();
 			newBeans.setBeanImg(beanImg);
@@ -413,7 +411,7 @@ public class ProductController {
 			newBeans.setSellerEmail(sellerEmail);
 			newBeans.setBeanName(beanName);
 			newBeans.setBeanPrice(beanPrice);
-			newBeans.setCategoryNum(10);
+			newBeans.setCategoryNum(categoryNum);
 			newBeans.setDeliveryCharge(deliveryCharge);
 
 			// 데이터베이스에 새 게시물 추가
@@ -463,7 +461,7 @@ public class ProductController {
 		}
 	}
 
-	// 상품 정보 수정하기로 이동
+	// 상품 상태 수정하기로 이동
 	@GetMapping("/productModify")
 	public String productModify(@RequestParam("beansNum") int beansNum, Model model, HttpSession session){
 		BeansDO beansDO= beansDAO.getBean(beansNum);
@@ -477,7 +475,18 @@ public class ProductController {
 		return "productModify";
 	}
 	
-	// 상품 정보 수정
+	// 상품 정보 수정하기 페이지로 이동
+		@GetMapping("/modifyInfo")
+		public String modifyInfo(@RequestParam("beansNum") int beansNum, Model model, HttpSession session){
+			BeansDO beansDO= beansDAO.getBean(beansNum);
+			String categoryName = beansDAO.getCategoryName(beansDO.getCategoryNum());			
+			model.addAttribute("bean", beansDO);
+			model.addAttribute("cname", categoryName);
+
+			return "modifyInfo";
+		}
+	
+	// 상품 상태 수정
 	@GetMapping("/setStatus")
 	public String setStatus(HttpServletRequest request) {
 		
@@ -501,6 +510,53 @@ public class ProductController {
 		
 		return "redirect:/myPageSeller";
 	}
+	
+	//상품 정보 수정
+	@PostMapping("/doModifyInfo")
+	public String doModifyInfo(
+			@ModelAttribute BeansDO command,
+			Model model, 
+			HttpServletRequest request, HttpServletResponse response, 
+			HttpSession session, String[] img) 
+			throws ServletException, IOException {
+		
+		String directory = "C:/Users/jsseo/git/coffee/src/main/webapp/registerData/sellerData/beans" ;
+		//String directory = "D:/multicampus_project/coffee//coffee-please/src/main/webapp/registerData/sellerData/beans";
+			int sizeLimit = 1024 * 1024 * 5;
+			
+			MultipartRequest multi = new MultipartRequest(request, directory, sizeLimit,
+					"UTF-8", new DefaultFileRenamePolicy());
+			String action = multi.getParameter("action"); //여기서 action은 jsp버튼의 action
+			if (action != null && action.equals("doModifyInfo")) {
+				
+				String sellerEmail = String.valueOf(session.getAttribute("sellerEmail"));
+				String beansNum = multi.getParameter("beansNum");
+				String beanName = multi.getParameter("beanName");
+				String categoryNum = multi.getParameter("categoryNum");
+				int beanPrice = Integer.parseInt(multi.getParameter("beanPrice"));
+				long deliveryCharge = Long.parseLong(multi.getParameter("deliveryCharge"));
+								
+				img = imgUpload.saveImg(multi, directory);
+				
+				String beanImg = "/coffee/registerData/sellerData/beans/" + img[1];  
+				String descript = "/coffee/registerData/sellerData/beans/"+ img[0];  
+				
+				
+				command.setCategoryNum(Integer.parseInt(categoryNum));
+				command.setBeansNum(Integer.parseInt(beansNum));
+				command.setSellerEmail(sellerEmail);
+				command.setBeanName(beanName);
+				command.setBeanPrice(beanPrice);
+				command.setDeliveryCharge(deliveryCharge);
+				command.setBeanImg(beanImg);
+				command.setDescript(descript);
+
+				beansDAO.modifyBeans(command);
+				
+				System.out.println("success");
+			}
+			return "redirect:/myPageSeller";
+		}
 	
 	
 	
