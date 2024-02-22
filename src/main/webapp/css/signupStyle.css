@@ -1,0 +1,372 @@
+@charset "UTF-8";
+:root {
+    /* App Colors */
+    --color-primary: var(--color-brown);
+    --color-primary-variant: var(--color-lightbrown);
+    --color-accent: var(--color-green);
+    --color-accent-variant: var(--color-lightgreen);
+    --color-text: var(--color-darklightgreen);
+    /* Colors */
+    --color-brown: #CCA47A;
+    --color-lightbrown: #F7ECD0;
+    --color-beige: #FDFAE1;
+    --color-lightgreen: #E9ECCC;
+    --color-green: #CCD4B0;
+    --color-white: #fff;
+    --color-darkbrown: #B17034;
+    --color-darklightbrown: #D3A368;
+    --color-darkbeige: #FDFAE1;
+    --color-darklightgreen: #626B3D;
+    --color-darkgreen: #2B351C;
+    --color-gray: #7d7c7c;
+    --color-light-gray: #b9b5b5;
+    --color-red: rgb(241, 150, 136);
+    /* Size */
+    --size-max-width: 1200px;
+}
+* {
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
+h1, h2 , h3, p, ul {
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+   display: flex;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+button {
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+}
+
+button:focus {
+    outline: 1px solid transparent;
+}
+
+/* Common */
+.section {
+    padding: 4rem;
+    text-align: center;
+}
+
+.max-container {
+    max-width: var(--size-max-width);
+    margin: auto;
+}
+.title {
+    font-size: 2.5rem;
+    margin: 1rem 0;
+}
+
+.description {
+    font-size: 1.5rem;
+    margin: 0.5rem;
+}
+
+/* Header */
+.header {
+    background-color: var(--color-white);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 300ms ease;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    z-index: 999;
+}
+.header__nav {
+    display: flex;
+}
+.header__side {
+    display: flex;
+    padding-left: 22rem;
+}
+
+
+.header__logo {
+    align-items: center;
+    gap: 8px;
+}
+.header__logo__img {
+    width: 15rem;
+    margin: 0;
+
+}
+.header__menu {
+    display: flex;
+    gap: 1rem;
+    margin-left: 24.3rem;
+}
+
+.header__menu__item {
+    display: flex;
+    padding: 8px 16px;
+    border-bottom: 1px solid transparent;
+    color: var(--color-text);
+    font-weight: bold;
+    font-size: 1.2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.header__menu__item:hover {
+    color: var(--color-accent);
+}
+
+/* Signup */
+
+#signupSelect {
+    height: 740px;
+    display: flex;
+}
+
+.signupSelect {
+    padding: 1rem;
+    margin-top: 60px;
+}
+.signupSelect__div {
+    display: flex;
+    gap: 4rem;
+    margin-top: 2rem;
+}
+.signupSelect__form-div {
+    padding: 2rem 1rem;
+    width: 370px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, 
+                rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+.signupSelect__description {
+    font-size: 15px;
+    color: var(--color-light-gray);
+    display: inline-flex;
+}
+.description__accent {
+    color: var(--color-red);
+}
+.signup__img {
+    width: 23rem;
+}
+.seller__img {
+    width: 18rem;
+}
+.signupSelect__button {
+    color: var(--color-white);
+    border: none;
+    font-size: 15px;
+    width: 9rem;
+    background-color: var(--color-accent);
+    border-radius: 7px;
+    margin: 10px;
+    padding: 0.5rem;
+}
+.signup__button:hover,
+.signupSelect__button:hover {
+    color: var(--color-text);
+    background-color: var(--color-white);
+    border: 2px solid var(--color-accent);
+    font-size: 15px;
+  }
+
+/* SignupSeller */
+/* #signup {
+    height: 736px;
+} */
+.signup {
+    padding: 1rem;
+    margin-top: 60px;
+}
+.signup__form-div {
+    padding: 2rem 1rem;
+    width: 550px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, 
+                rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+.signup__title {
+    font-size: 1.3rem;
+    margin: 5px 0px 20px 0px;
+    color: var(--color-gray);
+}
+.signup__description {
+    font-size: 14.3px;
+    margin: 5px 0px 20px 0px;
+    color: var(--color-light-gray);
+}
+.signup__form {
+    display: inline-grid;
+}
+
+.signup__label {
+    border-bottom: 1px solid var(--color-gray); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16rem;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.signup__icon {
+	padding: 0.5rem;
+}
+
+
+
+.signup__input {
+    border: none;
+    width: 100%;
+    padding: 10px;
+}
+
+.signup__input::placeholder {
+    font-size: 14px; 
+}
+
+
+.business__title {
+    font-size: 1rem;
+    text-align: left;
+    color: var(--color-gray);
+    margin: 25px 0px 10px 0px;
+}
+
+  .signup__button{
+    color: var(--color-white);
+    border: none;
+    font-size: 1.2rem;
+    padding: 0.3rem 0rem;
+    width: 100%;
+    background-color: var(--color-accent);
+    border-radius: 7px;
+    margin-top: 15px;
+  }
+  
+  
+  /*ErrorMessge*/
+  
+  #signUpMsg{
+	  color: var(--color-red);
+	  margin-top: 2rem;
+	  display: none;
+  }
+  
+  .passwdMsg {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  gap: 0.5rem;
+  }
+  
+  #strengthDisp{
+	  display: none;
+	  width: 4.5rem;
+	  color: var(--color-white);
+	  border-radius: 1rem;
+	  margin-bottom: 1rem;
+  }
+  
+  #strengthMsg{
+	  display: none;
+	  margin-bottom: 1rem;
+  }
+  
+  #confirmMsg {
+	  display: none;
+	  padding-bottom: 1rem;
+  }
+  
+  .error-message {
+      color: var(--color-text);
+  }
+  
+  .error {
+    border-bottom: 1px solid var(--color-red);
+   }
+	
+	@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+  .error .signup__icon {
+    color: var(--color-red);
+    border-bottom: none;
+    animation: shake 0.5s ease-in-out;
+  }
+  
+
+  /* sellerModify */
+  #signup__sellerModify {
+	  height: 1005px;
+  }
+  #modify__form {
+    display: inline-grid;
+    margin: 1rem;
+}
+  .signup__button-div {
+    display: flex;
+    gap: 3rem;
+  }
+  .modifySeller {
+      padding: 1rem;
+      margin-top: 130px;
+      height: 1000px;
+  }
+  /* buyerModify */
+#signup__buyerModify {
+    height: 1008px;
+}
+.modify__form-div  {
+	padding: 2rem 1rem;
+    width: 500px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+.signup__buyerModify {
+    padding: 1rem;
+    margin-top: 150px;
+
+}
+.sources {
+    display: flex;
+    justify-content: right;
+    color: var(--color-brown);
+    font-size: 10px;
+}
+/* Footer */
+#contact {
+    position: relative;
+    background-color: var(--color-primary);
+    color: var(--color-beige);
+}
+
+
+

@@ -1,0 +1,463 @@
+@charset "UTF-8";
+:root {
+    /* App Colors */
+    --color-primary: var(--color-brown);
+    --color-primary-variant: var(--color-lightbrown);
+    --color-accent: var(--color-green);
+    --color-accent-variant: var(--color-lightgreen);
+    --color-text: var(--color-darklightgreen);
+    /* Colors */
+    --color-brown: #CCA47A;
+    --color-lightbrown: #F7ECD0;
+    --color-beige: #FDFAE1;
+    --color-lightgreen: #E9ECCC;
+    --color-green: #CCD4B0;
+    --color-white: #fff;
+    --color-darkbrown: #B17034;
+    --color-darklightbrown: #D3A368;
+    --color-darkbeige: #FDFAE1;
+    --color-darklightgreen: #626B3D;
+    --color-darkgreen: #2B351C;
+    --color-gray: #7d7c7c;
+    --color-light-gray: #b9b5b5;
+    --color-red: rgb(241, 150, 136);
+    /* Size */
+    --size-max-width: 1200px;
+}
+* {
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
+h1, h2 , h3, p, ul {
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+   display: flex;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+button {
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+}
+
+button:focus {
+    outline: 1px solid transparent;
+}
+
+/* Common */
+.section {
+    padding: 4rem;
+    text-align: center;
+}
+
+.max-container {
+    max-width: var(--size-max-width);
+    margin: auto;
+}
+.title {
+    font-size: 2.5rem;
+    margin: 1rem 0;
+}
+
+.description {
+    font-size: 1.5rem;
+    margin: 0.5rem;
+}
+
+/* myPage */
+
+#myPageInfo {
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.myPageInfo {
+    top: 300px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 3rem 4rem;
+    background: rgb(250,250,249);
+    background: linear-gradient(90deg, rgba(250,250,249,1) 21%, rgba(233,236,204,1) 100%);
+    align-items: center; 
+    width: 60rem;
+}
+
+.myPageInfo__img {
+    width: 16rem;
+}
+.myPageInfo__id {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: var(--color-darkgreen);
+    margin-top: 30px;
+}
+
+.myPageInfo__po-mo {
+    display: grid;
+    gap: 5rem;
+    margin-top: 5.2rem;
+    text-align: right;
+}
+.myPageInfo__pointDiv{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-darkgreen);
+    border-radius: 1rem;
+}
+
+.myPageInfo__balance {
+    font-weight: bold;
+    font-size: 4rem;
+    color: var(--color-text);
+
+}
+
+.myPageInfo__point {
+    font-size: 2rem;
+    color: var(--color-darkbrown);
+    font-weight: bold;
+}
+.myPageInfo__button {
+	display: flex;
+    margin-left: auto;
+    gap: 0.6rem;
+}
+
+.myPageInfo__logout, .myPageInfo__modify {
+    font-size: 1.3rem;
+    color: var(--color-darkgreen);
+}
+
+.myPageInfo__logout:hover, .myPageInfo__modify:hover {
+    font-size: 1.3rem;
+    color: var(--color-darkbrown);
+}
+
+
+.myPageNav {
+    display: flex;
+    gap: 2rem;
+}
+.myPageNav__button {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 0;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    color: var(--color-darkgreen); 
+    transition: color 0.5s; 
+}
+  
+.myPageNav__button::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-darkbrown);
+    transition: width 0.5s; 
+}
+  
+.myPageNav__button:hover::before, .myPageNav__button:focus::before {
+    width: 100%; 
+}
+.active {
+	border-bottom: 1.5px solid var(--color-darkbrown);
+	
+}
+
+#myPageLike {
+    display: block;
+}
+
+#myPagePurchase {
+    display: none;
+}
+
+#myPagePurchaseGroup {
+    display: none;
+}
+  
+  
+
+
+  
+  
+
+
+/* myPageLike */
+#myPageLike {
+    background-color: var(--color-beige);
+   	display: block;
+}
+
+.myPageLike__title {
+    font-size: 1.4rem;
+    margin: 0rem 3rem 3rem 3rem;
+    color: var(--color-gray);
+}
+
+.myPageLike {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-white);
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+
+.myPageLike__product {
+	margin: 50px 10px 50px 18px;
+    display: grid;
+    grid-template-columns: 2fr 2fr 0.7fr;
+    width: 35rem;
+    height: 14rem;
+    border-radius: 10px;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    box-shadow: 4.0px 8.0px 8.0px rgba(0,0,0,0.38);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
+}
+.myPage__productText {
+	padding: 10px;
+    color: var(--color-darkgreen);
+    font-size: 16px;
+}
+.myPagePurchase__productText {
+	padding-bottom: 15px;
+    color: var(--color-darkgreen);
+    font-size: 16px;
+}
+.myPagePurchase__detailButtonToMyPage{
+	display: flex;
+	justify-content: center;
+}
+.myPagePurchase__table {
+	margin: 15px 0px;
+}
+.sold-out {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	display: table;
+	background: rgba(0, 0, 0, 0.5);
+	color: #fff;
+	border-radius: 10px;
+}
+
+.sold-out > p {
+	display: table-cell;
+	font-size: 30px;
+	vertical-align: middle;
+}
+
+.myPagePurchase__productImg, .myPagePurchase__productImgButton, .myPagePurchase__productImgForm {
+    width: 200px;
+    height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.myPagePurchase__product {
+    margin: 50px 10px 50px 18px;
+    display: grid;
+    grid-template-columns: 1.7fr 2fr 0.7fr;
+    width: 35rem;
+    height: 14rem;
+    border-radius: 10px;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    box-shadow: 4px 8px 8px rgba(0,0,0,0.38);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.myPageLike__productImg, .myPageLike__productImgButton, .myPageLike__productImgForm {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+}
+.myPageLike__productInfo {
+    display: grid;
+    height: 100%;
+    justify-content: space-between;
+    gap: 1.4rem;
+    
+}
+.myPageLike__productName {
+    font-size: 1.3rem;
+    color: var(--color-text);
+}
+
+.myPageLike__productQty {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.myPageLike__productPrice {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.myPageLike__hate {
+    color: var(--color-red);
+    font-size: 1.5rem;
+}
+
+
+.myPageSources {
+    background-color: var(--color-beige);
+    display: flex;
+    justify-content: right;
+    color: var(--color-brown);
+    font-size: 10px;
+}
+
+/* myPagePurchase */
+#myPagePurchase {
+    background-color: var(--color-beige);
+    display: none;
+}
+
+.myPagePurchase__title {
+    font-size: 1.4rem;
+    margin: 0rem 3rem 3rem 3rem;
+    color: var(--color-gray);
+}
+
+.myPagePurchase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-white);
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+
+
+
+.myPagePurchase__productInfo {
+    display: grid;
+    height: 100%;
+    justify-content: space-between;
+    gap: 1.4rem;
+    
+}
+.myPagePurchase__productName {
+    font-size: 1.3rem;
+    color: var(--color-text);
+}
+
+.myPagePurchase__productQty {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.myPagePurchase__productPrice {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.myPagePurchase__detail {
+    color: var(--color-darkgreen);
+    font-weight: bold;
+    font-size: 14px;
+}
+.myPagePurchase__detail:hover {
+    color: var(--color-brown);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+
+/* myPagePurchase */
+#myPagePurchaseGroup {
+    background-color: var(--color-beige);
+    display: none;
+}
+
+.myPagePurchaseGroup__title {
+    font-size: 1.4rem;
+    margin: 0rem 3rem 3rem 3rem;
+    color: var(--color-gray);
+}
+
+.myPagePurchaseGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-white);
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+
+.myPagePurchaseGroup__product {
+    display: flex;
+    padding: 2rem;
+    margin: 4rem 0rem 3rem 4.5rem;
+    width: 28rem;
+    height: 14rem;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: rgba(13, 38, 76, 0.19) 0px 9px 20px;
+}
+.myPagePurchaseGroup__productImg {
+    width: 10rem;
+}
+.myPagePurchaseGroup__productInfo {
+    display: grid;
+    height: 100%;
+    justify-content: space-between;
+    gap: 1.4rem;
+    
+}
+.myPagePurchaseGroup__productName {
+    font-size: 1.3rem;
+    color: var(--color-text);
+}
+
+.myPagePurchaseGroup__productQty {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.myPagePurchaseGroup__productPrice {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.myPagePurchaseGroup__detail {
+    color: var(--color-red);
+    font-size: 1.5rem;
+}
+
+.myPagePurchaseGroup__detail:hover  {
+    color: var(--color-gray); 
+  }

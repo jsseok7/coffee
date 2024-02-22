@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script>
+	function clickHandler(that) {
+		alert(that);
+	}
+	</script>
+</head>
+<body>
+
+	<button onclick="(function(event) {
+		clickHandler(event.target);
+	})(event)">Click!</button>
+	
+	<button onclick="alert(this)">Click!</button>
+
+</body>
+</html>
