@@ -31,7 +31,7 @@ public class BuyerDAO {
 
         int rowCount = 0;
         boolean isIdDuplicate = false;
-
+        HashPw hash = new HashPw();
         try{
             this.conn.setAutoCommit(false);
 
@@ -40,13 +40,18 @@ public class BuyerDAO {
             pstmt.setString(1, buyer.getBuyerEmail());
             this.rs = pstmt.executeQuery();
 
+            
             if(!rs.next()){
                 this.sql = "insert into buyer (buyer_email, buyer_name, nickname, passwd, tel, adr, buyer_img) values (?, ?, ?, ?, ?, ?, ?)";
                 pstmt = conn.prepareStatement(sql);
+                
+                //비밀번호 해시+솔트 처리 후 DB저장
+                String hashPw = hash.hashPw(buyer.getPasswd(), buyer.getSaltValue(buyer.getBuyerEmail()));
+                
                 pstmt.setString(1, buyer.getBuyerEmail());
                 pstmt.setString(2, buyer.getBuyerName());
                 pstmt.setString(3, buyer.getNickname());
-                pstmt.setString(4, buyer.getPasswd());
+                pstmt.setString(4, hashPw); 
                 pstmt.setString(5, buyer.getTel());
                 pstmt.setString(6, buyer.getAddress());
                 pstmt.setString(7, buyer.getBuyerImg());
@@ -217,11 +222,13 @@ public class BuyerDAO {
         return isCheckBuyerId;
     }
 
-    //로그인 - 비밀번호 확인 ,비밀번호 일치 시 true, 불일치 시 false
+    //로그인 - 비밀번호 확인 ,비밀번호 일치 시 true, 불일치 시 false, 해시 비번 추가
     public boolean checkBuyerPasswd(String email, String passwd){
-
+    	
+     	HashPw hash = new HashPw();
+     	
         boolean isCheckBuyerPasswd = false;
-
+        	
         this.sql = "select passwd from buyer where buyer_email = ?";
 
         try{
@@ -230,7 +237,9 @@ public class BuyerDAO {
             rs = this.pstmt.executeQuery();
 
             if(rs.next()){
-                if(Objects.equals(this.rs.getString("passwd"), passwd)){
+            	String hashPw = rs.getString("passwd");
+            	String submitPw = hash.hashPw(passwd, new BuyerDO().getSaltValue(email));
+                if(Objects.equals(hashPw, submitPw)){
                     isCheckBuyerPasswd = true;
                 }
             }

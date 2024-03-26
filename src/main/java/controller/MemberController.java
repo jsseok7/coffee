@@ -106,6 +106,7 @@ public class MemberController {
 	@PostMapping("/mainLogin")
 	public String mainLoginBuyer(@RequestParam("action") String action, HttpServletRequest request, HttpSession session, Model model) {
 		String user = request.getParameter("user");
+		HashPw hash = new HashPw();
 		
 		if(action.equals("login")) {
 			System.out.println("1");
@@ -150,11 +151,13 @@ public class MemberController {
 				
 			} 
 			else if(user.equals("buyer")){
+				
 				String id = request.getParameter("id");
 				String pw = request.getParameter("passwd");
 				
 				BuyerDO buyerDO = buyerDAO.getBuyer(id);
 				model.addAttribute("buyer", buyerDO);
+				String saltValue = buyerDO.getSaltValue(id);
 				
 				// 겹치면 true = DB에 id가 있다는 뜻
 				if(buyerDAO.checkBuyerId(id)) {
@@ -164,8 +167,9 @@ public class MemberController {
 					model.addAttribute("login", "fail1");
 					return "/main";
 				}
-				//비밀번호 틀림
-				else if(!buyerDO.getPasswd().equals(pw)){
+				//비밀번호 틀림, 해싱 처리 추가
+				
+				else if(!buyerDO.getPasswd().equals(hash.hashPw(pw,saltValue))){
 					System.out.println("login fail2");
 					model.addAttribute("categoryList", beansDAO.getAllCategory());
 					model.addAttribute("bestBean", beansDAO.bestBeanArray());
