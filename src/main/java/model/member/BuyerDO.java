@@ -1,5 +1,7 @@
 package model.member;
 
+import java.util.HashMap;
+
 public class BuyerDO {
 
     private String buyerEmail;
@@ -11,7 +13,22 @@ public class BuyerDO {
     private String regdate;
     private String buyerImg;
     private String address;
-
+    private Salt salt = new Salt();
+    HashMap<String, String> saltValues = new HashMap<>();
+    
+    public void setSaltValue(String buyerEmail) {
+        if(!saltValues.containsKey(buyerEmail)){
+            String saltValue = salt.newSalt();
+            saltValues.put(buyerEmail, saltValue);
+        }
+    }
+    
+    public String getSaltValue(String buyerEmail)
+    {
+        return saltValues.get(buyerEmail);
+    }
+    
+    
     public String getBuyerEmail() {
         return buyerEmail;
     }

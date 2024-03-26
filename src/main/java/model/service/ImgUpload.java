@@ -21,10 +21,10 @@ public class ImgUpload {
 
         System.out.println(directory);
         // 파일 업로드 액션
-        // 디렉토리 생성
+        
         File uploadDir = new File(directory);
         if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
+            uploadDir.mkdirs();// 디렉토리 생성
         }
         String savedName = "";
         String savedName1 = "";
