@@ -13,19 +13,17 @@ public class BuyerDO {
     private String regdate;
     private String buyerImg;
     private String address;
-    private Salt salt = new Salt();
-    HashMap<String, String> saltValues = new HashMap<>();
+    private String saltValue;
+    Salt salt = new Salt();
+
     
-    public void setSaltValue(String buyerEmail) {
-        if(!saltValues.containsKey(buyerEmail)){
-            String saltValue = salt.newSalt();
-            saltValues.put(buyerEmail, saltValue);
-        }
+    public void setSaltValue(String saltValue) {
+    	this.saltValue = saltValue;
     }
     
     public String getSaltValue(String buyerEmail)
     {
-        return saltValues.get(buyerEmail);
+        return saltValue;
     }
     
     

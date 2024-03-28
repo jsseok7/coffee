@@ -9,11 +9,8 @@ public class HashPw {
 	public String hashPw(String password, String salt){
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            Random random = new Random();
-            
-            int hashTry = random.nextInt(500, 1000);
-            
-            for (int i = 0; i < hashTry; i++) {
+                     
+            for (int i = 0; i < 500; i++) {
                 String temp = password + salt;
                 md.update(temp.getBytes());
             }

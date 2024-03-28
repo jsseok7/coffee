@@ -171,6 +171,10 @@ public class MemberController {
 				
 				else if(!buyerDO.getPasswd().equals(hash.hashPw(pw,saltValue))){
 					System.out.println("login fail2");
+					System.out.println(buyerDO.getPasswd());
+					System.out.println(pw);
+					System.out.println(saltValue);
+					System.out.println(hash.hashPw(pw,saltValue));
 					model.addAttribute("categoryList", beansDAO.getAllCategory());
 					model.addAttribute("bestBean", beansDAO.bestBeanArray());
 					model.addAttribute("login", "fail2");
@@ -500,6 +504,7 @@ public class MemberController {
 		else if(command.equals("signup")){
 			buyer.setBuyerImg("/coffee/images/userImginit.png");
 			buyerDAO.insertBuyer(buyer);
+			System.out.println(buyer.getSaltValue(buyer.getBuyerEmail()));
 			return "redirect:/main";
 			
 		}

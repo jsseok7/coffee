@@ -1,6 +1,7 @@
 package model.member;
 
 import java.sql.*;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class BuyerDAO {
@@ -28,10 +29,13 @@ public class BuyerDAO {
 
     //구매자 회원 가입
     public int insertBuyer(BuyerDO buyer) throws Exception{
-
+  
         int rowCount = 0;
         boolean isIdDuplicate = false;
         HashPw hash = new HashPw();
+        Salt salt = new Salt();
+
+        
         try{
             this.conn.setAutoCommit(false);
 
@@ -42,11 +46,13 @@ public class BuyerDAO {
 
             
             if(!rs.next()){
-                this.sql = "insert into buyer (buyer_email, buyer_name, nickname, passwd, tel, adr, buyer_img) values (?, ?, ?, ?, ?, ?, ?)";
+                this.sql = "insert into buyer (buyer_email, buyer_name, nickname, passwd, tel, adr, buyer_img, salt) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 pstmt = conn.prepareStatement(sql);
                 
                 //비밀번호 해시+솔트 처리 후 DB저장
-                String hashPw = hash.hashPw(buyer.getPasswd(), buyer.getSaltValue(buyer.getBuyerEmail()));
+                String saltValue = salt.newSalt(buyer.getBuyerEmail());
+                buyer.setSaltValue(saltValue);
+                String hashPw = hash.hashPw(buyer.getPasswd(), saltValue);
                 
                 pstmt.setString(1, buyer.getBuyerEmail());
                 pstmt.setString(2, buyer.getBuyerName());
@@ -55,7 +61,7 @@ public class BuyerDAO {
                 pstmt.setString(5, buyer.getTel());
                 pstmt.setString(6, buyer.getAddress());
                 pstmt.setString(7, buyer.getBuyerImg());
-                
+                pstmt.setString(8, buyer.getSaltValue(buyer.getBuyerEmail()));
                 rowCount = pstmt.executeUpdate();
                 this.conn.commit();
             }
@@ -153,13 +159,13 @@ public class BuyerDAO {
 
         BuyerDO buyer = new BuyerDO();
         this.sql = "select buyer_email, buyer_name, nickname, passwd, point, tel, to_char(regdate, 'YYYY-MM-DD HH24:MI:SS') as regdate," +
-                "buyer_img, adr from buyer where buyer_email = ?";
+                "buyer_img, adr, salt from buyer where buyer_email = ?";
 
         try{
             this.pstmt = conn.prepareStatement(sql);
             this.pstmt.setString(1, email);
             rs = this.pstmt.executeQuery();
-
+            
             if(rs.next()){
                 buyer.setBuyerEmail(this.rs.getString("buyer_email"));
                 buyer.setBuyerName(this.rs.getString("buyer_name"));
@@ -170,6 +176,7 @@ public class BuyerDAO {
                 buyer.setRegdate(this.rs.getString("regdate"));
                 buyer.setBuyerImg(this.rs.getString("buyer_img"));
                 buyer.setAddress(this.rs.getString("adr"));
+                buyer.setSaltValue(this.rs.getString("salt"));
             }
         }
         catch(Exception e) {
@@ -226,7 +233,7 @@ public class BuyerDAO {
     public boolean checkBuyerPasswd(String email, String passwd){
     	
      	HashPw hash = new HashPw();
-     	
+     	BuyerDO buyer = new BuyerDO();
         boolean isCheckBuyerPasswd = false;
         	
         this.sql = "select passwd from buyer where buyer_email = ?";
@@ -238,7 +245,7 @@ public class BuyerDAO {
 
             if(rs.next()){
             	String hashPw = rs.getString("passwd");
-            	String submitPw = hash.hashPw(passwd, new BuyerDO().getSaltValue(email));
+            	String submitPw = hash.hashPw(passwd, buyer.getSaltValue(email));
                 if(Objects.equals(hashPw, submitPw)){
                     isCheckBuyerPasswd = true;
                 }
